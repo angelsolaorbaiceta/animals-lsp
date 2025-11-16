@@ -3,13 +3,14 @@ package main
 import (
 	"log"
 	"os"
+
+	"github.com/angelsolaorbaiceta/animals-lsp/internal"
 )
 
 func main() {
-	// Redirect log to stderr so it doesn't interfere with LSP IO
 	log.SetOutput(os.Stderr)
 	log.SetPrefix("[animals-lsp]")
-	log.Println("Animals LSP server started.")
+	log.Println("Animals LSP server starting...")
 
-	// reader := bufio.NewReader(os.Stdin)
+	internal.MakeStdIOServer().Start()
 }

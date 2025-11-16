@@ -1,22 +1,16 @@
 package internal
 
 import (
-	"bufio"
-	"fmt"
-	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestReadRequestWithoutParams(t *testing.T) {
-	var (
-		content = "{ \"jsonrpc\": \"2.0\", \"id\": 34, \"method\": \"textDocument/completion\" }"
-		header  = fmt.Sprintf("Content-Length: %d\r\n", len(content))
-		sc      = bufio.NewReader(strings.NewReader(header + "\r\n" + content))
+	reader := makeReqReaderFromString(
+		"{ \"jsonrpc\": \"2.0\", \"id\": 34, \"method\": \"textDocument/completion\" }",
 	)
-
-	got, err := readRequest(sc)
+	got, err := readRequest(reader)
 	assert.Nil(t, err)
 
 	wantID := 34
@@ -30,13 +24,10 @@ func TestReadRequestWithoutParams(t *testing.T) {
 }
 
 func TestReadRequestWithParams(t *testing.T) {
-	var (
-		content = "{ \"jsonrpc\": \"2.0\", \"id\": 34, \"method\": \"textDocument/completion\", \"params\": { \"foo\": 3 } }"
-		header  = fmt.Sprintf("Content-Length: %d\r\n", len(content))
-		sc      = bufio.NewReader(strings.NewReader(header + "\r\n" + content))
+	reader := makeReqReaderFromString(
+		"{ \"jsonrpc\": \"2.0\", \"id\": 34, \"method\": \"textDocument/completion\", \"params\": { \"foo\": 3 } }",
 	)
-
-	got, err := readRequest(sc)
+	got, err := readRequest(reader)
 	assert.Nil(t, err)
 
 	wantID := 34
