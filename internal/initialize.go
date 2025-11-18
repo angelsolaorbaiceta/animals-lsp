@@ -7,11 +7,11 @@ type InitializeParams struct {
 	// The process Id of the parent process that started the server.
 	// Is null if the process has not been started by another process.
 	// If the parent process is not alive, then the server should exit.
-	ProcessId  *int              `json:"processId"`
+	ProcessID  *int              `json:"processId"`
 	ClientInfo *ClientServerInfo `json:"clientInfo,omitempty"`
 	Locale     string            `json:"locale,omitempty"`
 	// The root URI of the workspace. Is null if no folder is open.
-	RootUri               *string            `json:"rootUri"`
+	RootURI               *string            `json:"rootUri"`
 	InitializationOptions json.RawMessage    `josn:"initializationOptions,omitempty"`
 	Capabilities          any                `json:"capabilities"`
 	TraceValue            TraceValue         `json:"traceValue,omitempty"`

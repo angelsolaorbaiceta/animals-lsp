@@ -1,7 +1,6 @@
 package internal
 
 const (
-	separator       = "\r\n"
-	doubleSeparator = "\r\n\r "
-	jsonRpcVersion  = "2.0"
+	doubleSeparator = "\r\n\r\n"
+	jsonRPCVersion  = "2.0"
 )

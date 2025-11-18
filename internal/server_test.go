@@ -32,13 +32,13 @@ func TestInitialize(t *testing.T) {
 	if err := json.Unmarshal([]byte(gotContent), &gotResponse); err != nil {
 		assert.Fail(t, "Couldn't unmarshal response content")
 	}
-	assert.Equal(t, jsonRpcVersion, gotResponse.JSONRPC)
+	assert.Equal(t, jsonRPCVersion, gotResponse.JSONRPC)
 	assert.Equal(t, 1123, *gotResponse.ID)
 	assert.Nil(t, gotResponse.Error)
 
-	resultJson, err := json.Marshal(gotResponse.Result)
+	resultJSON, err := json.Marshal(gotResponse.Result)
 	assert.Nil(t, err)
-	if err := json.Unmarshal(resultJson, &gotInitResult); err != nil {
+	if err := json.Unmarshal(resultJSON, &gotInitResult); err != nil {
 		assert.Fail(t, "Couldn't unmarshal result from response")
 	}
 

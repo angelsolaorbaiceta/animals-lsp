@@ -15,7 +15,7 @@ type Response struct {
 
 func makeResultResponse(ID *int, result any) *Response {
 	return &Response{
-		JSONRPC: jsonRpcVersion,
+		JSONRPC: jsonRPCVersion,
 		ID:      ID,
 		Result:  result,
 	}
