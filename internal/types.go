@@ -8,7 +8,7 @@ const (
 	TraceVerbose  TraceValue = "verbose"
 )
 
-type WorspaceFolder struct {
+type WorkspaceFolder struct {
 	// The associated URI for this workspace folder.
 	URI string `json:"uri"`
 	// The name of the workspace folder. Used to refer to this workspace in the

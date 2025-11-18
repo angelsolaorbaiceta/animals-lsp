@@ -11,11 +11,11 @@ type InitializeParams struct {
 	ClientInfo *ClientServerInfo `json:"clientInfo,omitempty"`
 	Locale     string            `json:"locale,omitempty"`
 	// The root URI of the workspace. Is null if no folder is open.
-	RootUri               *string           `json:"rootUri"`
-	InitializationOptions json.RawMessage   `josn:"initializationOptions,omitempty"`
-	Capabilities          any               `json:"capabilities"`
-	TraceValue            TraceValue        `json:"traceValue,omitempty"`
-	WorkspaceFolders      *[]WorspaceFolder `json:"workspaceFolders,omitempty"`
+	RootUri               *string            `json:"rootUri"`
+	InitializationOptions json.RawMessage    `josn:"initializationOptions,omitempty"`
+	Capabilities          any                `json:"capabilities"`
+	TraceValue            TraceValue         `json:"traceValue,omitempty"`
+	WorkspaceFolders      *[]WorkspaceFolder `json:"workspaceFolders,omitempty"`
 }
 
 func makeInitializeResult() *InitializeResult {

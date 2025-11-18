@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestInitalize(t *testing.T) {
+func TestInitialize(t *testing.T) {
 	var (
 		reader = makeReqReaderFromFile(t, "initialize_request_00.json")
 		writer = new(bytes.Buffer)
@@ -30,13 +30,17 @@ func TestInitalize(t *testing.T) {
 	assert.Equal(t, fmt.Sprintf("Content-Length: %d", len(gotContent)), gotHeader)
 
 	if err := json.Unmarshal([]byte(gotContent), &gotResponse); err != nil {
-		assert.Fail(t, "Couldn't unmarshall response content")
+		assert.Fail(t, "Couldn't unmarshal response content")
 	}
 	assert.Equal(t, jsonRpcVersion, gotResponse.JSONRPC)
 	assert.Equal(t, 1123, *gotResponse.ID)
 	assert.Nil(t, gotResponse.Error)
 
-	if err := json.Unmarshal(gotResponse.Result.([]byte), &gotInitResult); err != nil {
-		assert.Fail(t, "Couldn't unmarshall response content")
+	resultJson, err := json.Marshal(gotResponse.Result)
+	assert.Nil(t, err)
+	if err := json.Unmarshal(resultJson, &gotInitResult); err != nil {
+		assert.Fail(t, "Couldn't unmarshal result from response")
 	}
+
+	assert.Equal(t, *makeInitializeResult(), gotInitResult)
 }
