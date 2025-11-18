@@ -10,14 +10,24 @@ import (
 	"strings"
 )
 
-type Request struct {
-	JSONRPC string          `json:"jsonrpc"` // Always "2.0"
-	ID      *int            `json:"id"`      // ID is null for notifications
-	Method  string          `json:"method"`
-	Params  json.RawMessage `json:"params,omitempty"`
-}
+type RequestMethod string
+
+const (
+	ReqMethodInit             RequestMethod = "initialize"
+	ReqMethodDocCompletion    RequestMethod = "textDocument/completion"
+	ReqMethodDocHover         RequestMethod = "textDocument/hover"
+	ReqMethodDocSignatureHelp RequestMethod = "textDocument/signatureHelp"
+	ReqMethodDocDefinition    RequestMethod = "textDocument/definition"
+)
 
 var contentLenRe = regexp.MustCompile(`(?i)^Content-Length:\s*(\d+)\s*$`)
+
+type Request struct {
+	JSONRPC string          `json:"jsonrpc"` // Always "2.0"
+	ID      int             `json:"id"`
+	Method  RequestMethod   `json:"method"`
+	Params  json.RawMessage `json:"params,omitempty"`
+}
 
 // readRequest reads a request from the reader. A request has two parts:
 //  1. Headers: "<Name>: <Value>\r\n"
@@ -46,6 +56,10 @@ func readRequest(reader io.Reader) (*Request, error) {
 	for {
 		line, err := bufReader.ReadString('\n')
 		if err != nil {
+			if err == io.EOF {
+				return nil, err
+			}
+
 			return nil, fmt.Errorf("failed to read header: %w", err)
 		}
 

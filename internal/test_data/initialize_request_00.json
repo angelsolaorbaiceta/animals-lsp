@@ -1,0 +1,18 @@
+{
+  "jsonrpc": "2.0",
+  "id": 1123,
+  "method": "initialize",
+  "params": {
+    "workDoneToken": "MY-TOKEN-123",
+    "processId": null,
+    "clientInfo": {
+      "name": "TestClient",
+      "version": "v1.2"
+    },
+    "rootUri": "TODO",
+    "initializationOptions": [{ "foo": 1, "bar": 2, "bazz": "qux" }],
+    "capabilities": {},
+    "trace": "messages",
+    "workspaceFolders": []
+  }
+}

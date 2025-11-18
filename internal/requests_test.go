@@ -13,10 +13,9 @@ func TestReadRequestWithoutParams(t *testing.T) {
 	got, err := readRequest(reader)
 	assert.Nil(t, err)
 
-	wantID := 34
 	want := &Request{
 		JSONRPC: "2.0",
-		ID:      &wantID,
+		ID:      34,
 		Method:  "textDocument/completion",
 	}
 
@@ -30,10 +29,9 @@ func TestReadRequestWithParams(t *testing.T) {
 	got, err := readRequest(reader)
 	assert.Nil(t, err)
 
-	wantID := 34
 	want := &Request{
 		JSONRPC: "2.0",
-		ID:      &wantID,
+		ID:      34,
 		Method:  "textDocument/completion",
 		Params:  []byte("{ \"foo\": 3 }"),
 	}
